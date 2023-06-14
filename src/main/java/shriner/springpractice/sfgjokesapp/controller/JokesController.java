@@ -4,21 +4,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import shriner.springpractice.sfgjokesapp.service.ChuckJokeService;
+import shriner.springpractice.sfgjokesapp.service.JokeService;
 
 @Controller
 public class JokesController {
 
-    private final ChuckJokeService chuckJokeService;
+    private final JokeService jokeService;
 
-    public JokesController(ChuckJokeService chuckJokeService)
+    public JokesController(JokeService jokeService)
     {
-        this.chuckJokeService = chuckJokeService;
+        this.jokeService = jokeService;
     }
 
     @RequestMapping("/")
     public String getJoke(Model model)
     {
-        model.addAttribute("joke", chuckJokeService.tellJoke());
+        model.addAttribute("joke", jokeService.tellJoke());
+
+        model.addAttribute("type", jokeService.jokeType());
 
         return "index";
     }
